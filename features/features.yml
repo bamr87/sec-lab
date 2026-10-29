@@ -1,0 +1,78 @@
+# features/features.yml — THE FEATURE INDEX for sec-lab (schema features/v1, governance kit v0.1.1).
+# One entry per capability, stable id SECL-NNN (never reused). status: shipped | partial | planned | deprecated | tbd.
+# `prd:` links each feature to PRD.md requirements. The PRD "Feature catalog" block is generated:
+#   python3 <bamr87/bamr87>/tools/governance_lint.py prd-sync . --write
+schema: features/v1
+repo: bamr87/sec-lab
+
+features:
+  - id: SECL-001
+    title: "Minimal app binds to 127.0.0.1 only and serves a health route, with te"
+    description: "Minimal app binds to 127.0.0.1 only and serves a health route, with tests."
+    implemented: true
+    status: shipped
+    prd: [FR1]
+    surface: infra
+    link: pyproject.toml
+    tags: [phase-1]
+    date: 2026-10-28
+  - id: SECL-002
+    title: "Safety guard: refuses to start on a non-loopback bind without an expli"
+    description: "Safety guard: refuses to start on a non-loopback bind without an explicit flag."
+    implemented: false
+    status: planned
+    prd: [FR2]
+    surface: infra
+    docs: PRD.md
+    tags: [phase-1]
+    date: 2026-10-28
+  - id: SECL-003
+    title: "First challenge set: SQL injection and XSS with flags"
+    description: "First challenge set: SQL injection and XSS with flags."
+    implemented: false
+    status: planned
+    prd: [FR3]
+    surface: infra
+    docs: PRD.md
+    tags: [phase-2]
+    date: 2026-10-28
+  - id: SECL-004
+    title: "SAST workflow (Semgrep + Bandit) publishing SARIF"
+    description: "SAST workflow (Semgrep + Bandit) publishing SARIF."
+    implemented: false
+    status: planned
+    prd: [FR4]
+    surface: infra
+    docs: PRD.md
+    tags: [phase-2]
+    date: 2026-10-28
+  - id: SECL-005
+    title: "DAST baseline scan with OWASP ZAP in CI against a container"
+    description: "DAST baseline scan with OWASP ZAP in CI against a container."
+    implemented: false
+    status: planned
+    prd: [FR5]
+    surface: infra
+    docs: PRD.md
+    tags: [phase-3]
+    date: 2026-10-28
+  - id: SECL-006
+    title: "Fix write-ups linked per challenge"
+    description: "Fix write-ups linked per challenge."
+    implemented: false
+    status: planned
+    prd: [FR6]
+    surface: infra
+    docs: PRD.md
+    tags: [phase-3]
+    date: 2026-10-28
+  - id: SECL-007
+    title: "Standard CI gate"
+    description: "Every push and PR runs the fleet's shared standard-ci gate."
+    implemented: true
+    status: shipped
+    prd: [NFR1]
+    surface: infra
+    link: .github/workflows/ci.yml
+    tags: [ci]
+    date: 2026-10-28
