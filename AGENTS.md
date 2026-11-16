@@ -3,6 +3,8 @@
 
 # sec-lab
 
+> Sec Lab's direction is to become the ultimate open home for all things hands-on application-security practice: data, tools, resources and transparency, with a local-only deliberately vulnerable app, scanners and fix write-ups for everyone ([constitution](docs/constitution.md) §1).
+
 ## What this repo is
 
 A deliberately vulnerable practice app with SAST/DAST pipelines and CTF-style challenges. Local use only. Break things on purpose: an intentionally vulnerable web app, the scanners that find the bugs (Semgrep, Bandit, ZAP), and write-ups for each fix.

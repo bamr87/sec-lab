@@ -11,6 +11,23 @@ Break things on purpose: an intentionally vulnerable web app, the scanners that 
 | Version | Date | Notes |
 | --- | --- | --- |
 | 0.1 | 2026-10-28 | Initial requirements and phased roadmap (repo foundation). |
+| 0.2 | 2026-11-16 | Added §1.1 missions (amendment record in docs/amendments/). |
+
+## 1.1 Missions
+
+Sec Lab's direction is to become the ultimate open home for all things hands-on application-security practice — data, tools, resources and transparency, gathered in one place that anyone can inspect and reuse.
+
+1. **Provide data, tools, resources and transparency for all stakeholders, security practitioners and students, and the general public.** Learners, reviewers and anyone practicing defensive security are first-class audiences. The aim is a shared, inspectable commons: the same practice app, the same scanners, and the same fix write-ups for everyone.
+2. **Teach people to find and fix vulnerabilities in a deliberately broken app, with SAST and DAST scanners and write-ups for each fix, for local use only.** The lab exists so practice happens on purpose, in an isolated tree, never against a production system or a third party.
+3. **Feed the patterns learned here back into fleet hardening — identity, edge and hub security — so practice in the lab improves real defenses.** What is discovered and fixed in the lab should become reusable guidance, not a private notebook.
+
+These missions set the course; they do not claim the work is finished. They serve the PRD's learning-first path: an intentionally vulnerable app, Semgrep, Bandit and ZAP, and write-ups that can inform fleet hardening, always for local use only.
+
+**Requirement**
+
+- MR1: Constitution §1 states one direction statement and exactly three numbered missions, and the README and AGENTS.md taglines match that direction and link to constitution §1.
+
+Feature [SECL-008](features/features.yml) traces to requirement MR1.
 
 ## 2. Goals
 
@@ -65,6 +82,7 @@ Every user-facing capability has a stable id in the feature catalog [`features/f
 | [SECL-005](features/features.yml) | DAST baseline scan with OWASP ZAP in CI against a container | planned | [`PRD.md`](PRD.md) | FR5 |
 | [SECL-006](features/features.yml) | Fix write-ups linked per challenge | planned | [`PRD.md`](PRD.md) | FR6 |
 | [SECL-007](features/features.yml) | Standard CI gate | shipped | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | NFR1 |
+| [SECL-008](features/features.yml) | Constitution missions | planned | [`docs/constitution.md`](docs/constitution.md) · [`PRD.md`](PRD.md) | MR1 |
 
 **Requirement → feature trace**
 
@@ -77,4 +95,5 @@ Every user-facing capability has a stable id in the feature catalog [`features/f
 | FR5 | SECL-005 |
 | FR6 | SECL-006 |
 | NFR1 | SECL-007 |
+| MR1 | SECL-008 |
 <!-- features:end -->
