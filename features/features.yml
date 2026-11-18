@@ -8,7 +8,7 @@ repo: bamr87/sec-lab
 features:
   - id: SECL-001
     title: "Minimal app binds to 127.0.0.1 only and serves a health route, with te"
-    description: "Minimal app binds to 127.0.0.1 only and serves a health route, with tests."
+    description: "Minimal app binds to loopback only (IPv4 or ::1) and serves /healthz, /version and /, with 404 for other paths, with tests."
     implemented: true
     status: shipped
     prd: [FR1]

@@ -27,7 +27,12 @@ Security patterns learned here feed fleet hardening (zer0-id, edge-gateway, hub 
 
 ```bash
 pip install -e .[dev] && pytest
+python -m seclab.app   # serves on 127.0.0.1:8000 (loopback only)
+curl http://127.0.0.1:8000/healthz   # ok
+curl http://127.0.0.1:8000/version   # {"name": "sec-lab", "version": "..."}
 ```
+
+Routes: `/` (banner), `/healthz`, `/version` (JSON); any other path returns 404.
 
 ## How it grows
 
