@@ -6,9 +6,17 @@
 > Agents read this before [AGENTS.md](../AGENTS.md) conventions, the [PRD](../PRD.md), or the
 > [feature catalog](../features/features.yml). Ratified by merged PR; amended only per § 8.
 
-## 1. Mission
+## 1. Missions
 
-Break things on purpose: an intentionally vulnerable web app, the scanners that find the bugs (Semgrep, Bandit, ZAP), and write-ups for each fix. It is a learning-first portfolio project in the bamr87 fleet: Security patterns learned here feed fleet hardening (zer0-id, edge-gateway, hub security kit).
+Sec Lab's direction is to become the ultimate open home for all things hands-on application-security practice — data, tools, resources and transparency, gathered in one place that anyone can inspect and reuse.
+
+1. **Provide data, tools, resources and transparency for all stakeholders, security practitioners and students, and the general public.** Learners, reviewers and anyone practicing defensive security are first-class audiences. The aim is a shared, inspectable commons: the same practice app, the same scanners, and the same fix write-ups for everyone.
+2. **Teach people to find and fix vulnerabilities in a deliberately broken app, with SAST and DAST scanners and write-ups for each fix, for local use only.** The lab exists so practice happens on purpose, in an isolated tree, never against a production system or a third party.
+3. **Feed the patterns learned here back into fleet hardening — identity, edge and hub security — so practice in the lab improves real defenses.** What is discovered and fixed in the lab should become reusable guidance, not a private notebook.
+
+These missions set the course; they do not claim the work is finished. They serve the PRD's learning-first path: an intentionally vulnerable app, Semgrep, Bandit and ZAP, and write-ups that can inform fleet hardening, always for local use only.
+
+_Source: [PRD.md](../PRD.md) §1.1._
 
 ## 2. Invariants (non-negotiable)
 
