@@ -18,12 +18,13 @@ features:
     date: 2026-10-28
   - id: SECL-002
     title: "Safety guard: refuses to start on a non-loopback bind without an expli"
-    description: "Safety guard: refuses to start on a non-loopback bind without an explicit flag."
-    implemented: false
-    status: planned
+    description: "Safety guard: refuses to start on a non-loopback bind without an explicit flag. CLI: `sec-lab` / `python -m seclab.app` with --host, --port (1-65535) and --allow-public."
+    implemented: true
+    status: shipped
     prd: [FR2]
     surface: infra
-    docs: PRD.md
+    link: src/seclab/app.py
+    docs: README.md
     tags: [phase-1]
     date: 2026-10-28
   - id: SECL-003

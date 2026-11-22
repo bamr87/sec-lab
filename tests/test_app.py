@@ -8,6 +8,7 @@ from contextlib import contextmanager
 import pytest
 
 import seclab
+from seclab import app
 from seclab.app import check_bind, make_server
 
 
@@ -76,3 +77,64 @@ def test_ipv6_loopback_roundtrip():
         assert s.address_family == socket.AF_INET6
         status, _, body = get(f"http://[::1]:{s.server_address[1]}/healthz")
         assert (status, body) == (200, b"ok")
+
+
+# --- CLI (SECL-002): the loopback guard is reachable from the command line ---
+
+
+def test_help_exits_zero_without_binding(capsys, monkeypatch):
+    def no_bind(*a, **k):
+        raise AssertionError("--help must not build a server")
+
+    monkeypatch.setattr(app, "make_server", no_bind)
+    with pytest.raises(SystemExit) as exc:
+        app.main(["--help"])
+    assert exc.value.code == 0
+    out = capsys.readouterr().out
+    for flag in ("--host", "--port", "--allow-public"):
+        assert flag in out
+
+
+def test_parse_args_defaults():
+    args = app.parse_args([])
+    assert (args.host, args.port, args.allow_public) == ("127.0.0.1", 8000, False)
+
+
+@pytest.mark.parametrize("bad", ["0", "70000", "abc"])
+def test_bad_port_is_usage_error(bad):
+    with pytest.raises(SystemExit) as exc:
+        app.parse_args(["--port", bad])
+    assert exc.value.code == 2
+
+
+def test_cli_public_host_refused():
+    with pytest.raises(SystemExit) as exc:
+        app.main(["--host", "0.0.0.0"])
+    assert exc.value.code not in (0, None)
+    assert "refusing to bind 0.0.0.0" in str(exc.value.code)
+
+
+def test_cli_allow_public_binds():
+    args = app.parse_args(["--host", "0.0.0.0", "--allow-public"])
+    assert args.allow_public is True
+    server = make_server(args.host, 0, allow_public=args.allow_public)
+    try:
+        assert server.server_address[1] != 0
+    finally:
+        server.server_close()
+
+
+def test_main_passes_flags_to_make_server(monkeypatch):
+    seen = {}
+
+    class Fake:
+        def serve_forever(self):
+            seen["served"] = True
+
+    def fake_make_server(host, port, allow_public=False):
+        seen.update(host=host, port=port, allow_public=allow_public)
+        return Fake()
+
+    monkeypatch.setattr(app, "make_server", fake_make_server)
+    app.main(["--host", "0.0.0.0", "--port", "9001", "--allow-public"])
+    assert seen == {"host": "0.0.0.0", "port": 9001, "allow_public": True, "served": True}

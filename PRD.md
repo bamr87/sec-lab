@@ -76,7 +76,7 @@ Every user-facing capability has a stable id in the feature catalog [`features/f
 | ID | Feature | Status | Where | Requirements |
 | --- | --- | --- | --- | --- |
 | [SECL-001](features/features.yml) | Minimal app binds to 127.0.0.1 only and serves a health route, with te | shipped | [`pyproject.toml`](pyproject.toml) | FR1 |
-| [SECL-002](features/features.yml) | Safety guard: refuses to start on a non-loopback bind without an expli | planned | [`PRD.md`](PRD.md) | FR2 |
+| [SECL-002](features/features.yml) | Safety guard: refuses to start on a non-loopback bind without an expli | shipped | [`src/seclab/app.py`](src/seclab/app.py) · [`README.md`](README.md) | FR2 |
 | [SECL-003](features/features.yml) | First challenge set: SQL injection and XSS with flags | planned | [`PRD.md`](PRD.md) | FR3 |
 | [SECL-004](features/features.yml) | SAST workflow (Semgrep + Bandit) publishing SARIF | planned | [`PRD.md`](PRD.md) | FR4 |
 | [SECL-005](features/features.yml) | DAST baseline scan with OWASP ZAP in CI against a container | planned | [`PRD.md`](PRD.md) | FR5 |
