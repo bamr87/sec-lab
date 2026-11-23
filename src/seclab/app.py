@@ -3,6 +3,7 @@ import argparse
 import ipaddress
 import json
 import socket
+import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from seclab import __version__
@@ -81,7 +82,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
-    make_server(args.host, args.port, allow_public=args.allow_public).serve_forever()
+    server = make_server(args.host, args.port, allow_public=args.allow_public)
+    host, port = server.server_address[:2]
+    print(f"sec-lab listening on http://{f'[{host}]' if ':' in host else host}:{port}", file=sys.stderr)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass  # Ctrl-C is the normal way to stop the dev server: exit 0, not a traceback
+    finally:
+        server.server_close()
 
 
 if __name__ == "__main__":

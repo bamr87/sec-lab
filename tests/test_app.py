@@ -128,8 +128,13 @@ def test_main_passes_flags_to_make_server(monkeypatch):
     seen = {}
 
     class Fake:
+        server_address = ("0.0.0.0", 9001)
+
         def serve_forever(self):
             seen["served"] = True
+
+        def server_close(self):
+            seen["closed"] = True
 
     def fake_make_server(host, port, allow_public=False):
         seen.update(host=host, port=port, allow_public=allow_public)
@@ -137,4 +142,25 @@ def test_main_passes_flags_to_make_server(monkeypatch):
 
     monkeypatch.setattr(app, "make_server", fake_make_server)
     app.main(["--host", "0.0.0.0", "--port", "9001", "--allow-public"])
-    assert seen == {"host": "0.0.0.0", "port": 9001, "allow_public": True, "served": True}
+    assert seen == {"host": "0.0.0.0", "port": 9001, "allow_public": True, "served": True, "closed": True}
+
+
+def test_main_reports_address_and_stops_cleanly_on_ctrl_c(capsys, monkeypatch):
+    real = app.make_server
+    built = {}
+
+    def interrupted_server(host, port, allow_public=False):
+        server = real(host, 0, allow_public)  # port 0: a real loopback socket, no fixed port
+
+        def stop():
+            raise KeyboardInterrupt
+
+        server.serve_forever = stop
+        built["server"] = server
+        return server
+
+    monkeypatch.setattr(app, "make_server", interrupted_server)
+    app.main([])  # returns normally: KeyboardInterrupt is a clean exit (status 0)
+    port = built["server"].server_address[1]
+    assert f"listening on http://127.0.0.1:{port}" in capsys.readouterr().err
+    assert built["server"].socket.fileno() == -1  # server_close() released the socket
